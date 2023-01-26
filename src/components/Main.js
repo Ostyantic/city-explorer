@@ -14,9 +14,12 @@ class Main extends React.Component {
       displayInfo: false,
       city: "",
       cityData: "",
+      locationLat: "",
+      locationLon: "",
     };
   }
 
+  // event handler that console logs input on search field
   handleSearchInput = (e) => {
     let cityName = e.target.value;
     this.setState(
@@ -30,29 +33,36 @@ class Main extends React.Component {
   handleDisplaySearch = async (e) => {
     e.preventDefault();
 
-    let response = await axios.get(
+    let locationResponse = await axios.get(
       `https://us1.locationiq.com/v1/search?key=${process.env.REACT_APP_LOCATIONIQ_KEY}&q=${this.state.city}&format=json`
     );
 
-    console.log(response.data[0]);
+    console.log(locationResponse.data[0]);
+    console.log(locationResponse.data[0].lat);
+    console.log(locationResponse.data[0].lon);
 
     this.setState({
       displayInfo: true,
-      cityData: response.data[0],
+      cityData: locationResponse.data[0],
+      locationLat: locationResponse.data[0].lat,
+      locationLon: locationResponse.data[0].lon,
     });
+
+    console.log(this.state.cityMap);
+
   };
 
   render() {
     return (
       <>
-        <Container>
+        <Container className="formContainer">
           <Form>
             <Form.Group>
               <Form.Label>City</Form.Label>
               <Form.Control
                 type="text"
                 placeholder="City"
-                onInput={this.handleSearchInput}
+                onChange={this.handleSearchInput}
               />
               <Button onClick={this.handleDisplaySearch}>Explore!</Button>
             </Form.Group>
@@ -62,7 +72,9 @@ class Main extends React.Component {
         {this.state.displayInfo && (
           <>
             <Container>
+              {/* <Map /> */}
               <Location
+                mapImage={`https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATIONIQ_KEY}&center=${this.state.locationLat},${this.state.locationLon}&zoom=10&markers=icon:small-red-cutout|${this.state.locationLat},${this.state.locationLon}`}
                 cityName={this.state.cityData.display_name}
                 cityLat={this.state.cityData.lat}
                 cityLon={this.state.cityData.lon}
