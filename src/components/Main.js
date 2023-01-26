@@ -6,6 +6,23 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
 class Main extends React.Component {
+
+  constructor(props){
+    super(props);
+
+    this.state = {
+      displayInfo: false
+    }
+  }
+
+  displaySearch = (e) => {
+    e.preventDefault();
+    this.setState({
+      displayInfo: true
+    })
+    
+  }
+
   render() {
     return (
       <>
@@ -14,15 +31,17 @@ class Main extends React.Component {
           <Form.Group>
             <Form.Label>City</Form.Label>
             <Form.Control type="text" placeholder="City"/>
-            <Button variant="primary" type="submit" onClick={this.displaySearch}>
-              Search
-            </Button>
+            <Button onClick={this.displaySearch}>Explore!</Button>
           </Form.Group>
         </Form>
       </Container>
 
+      {this.state.displayInfo &&
+      <>
       <Map />
       <Restaurant />
+      </>
+      }
       </>
     );
   }
