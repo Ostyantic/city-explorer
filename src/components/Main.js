@@ -1,5 +1,5 @@
 import React from "react";
-import Map from "./Map";
+// import Map from "./Map";
 import Location from "./Location";
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
