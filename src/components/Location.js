@@ -4,9 +4,9 @@ import { Card } from 'react-bootstrap';
 class Location extends React.Component {
   render() {
     return (
-      <Card>
-        <Card.Header>{this.props.cityName}</Card.Header>
-        <Card.Body>{this.props.cityLat}, {this.props.cityLon}</Card.Body>
+      <Card bg='dark'>
+        <Card.Header as={'h2'}>City Info: {this.props.cityName}</Card.Header>
+        <Card.Body>Lat: {this.props.cityLat}, Long: {this.props.cityLon}</Card.Body>
       </Card>
     )
   }
