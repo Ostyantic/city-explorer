@@ -10,10 +10,33 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-footer {
+
+footer, header {
+  margin: 1rem;
   text-align: center;
 }
 
+.location { 
+  border: 1px solid azure;
+  border-radius: 5px;
+  padding: 1rem;
+  width: 25rem;
+  height: 36rem;
+  background-color: dimgray;
+}
+
+.formContainer {
+  /* align-items: center; */
+  /* text-align:left; */
+  background-color: dimgray;
+  width: 40%;
+  height: 5rem;
+  border: 1px solid black;
+  border-radius: 5px;
+  margin-bottom: 1rem;
+
+  /* margin: auto; */
+}
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
