@@ -1,5 +1,5 @@
 import React from "react";
-// import Map from "./Map";
+import Error from "./ErrorMsg";
 import Location from "./Location";
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
@@ -12,6 +12,7 @@ class Main extends React.Component {
 
     this.state = {
       displayInfo: false,
+      showError: false,
       city: "",
       cityData: "",
       locationLat: "",
@@ -30,6 +31,24 @@ class Main extends React.Component {
     );
   };
 
+  handleShowError = (e) => {
+    e.preventDefault();
+
+    if(this.state.locationLat || this.state.locationLon){
+      this.setState(
+      {
+        showError: false,
+      });
+    } else {
+      this.setState(
+      {
+        showError: true,
+      }
+      );
+    }
+
+  }
+
   handleDisplaySearch = async (e) => {
     e.preventDefault();
 
@@ -37,16 +56,22 @@ class Main extends React.Component {
       `https://us1.locationiq.com/v1/search?key=${process.env.REACT_APP_LOCATIONIQ_KEY}&q=${this.state.city}&format=json`
     );
 
-    console.log(locationResponse.data[0]);
-    console.log(locationResponse.data[0].lat);
-    console.log(locationResponse.data[0].lon);
+    // console.log(locationResponse.data[0]);
+    // console.log(locationResponse.data[0].lat);
+    // console.log(locationResponse.data[0].lon);
+    
 
-    this.setState({
-      displayInfo: true,
-      cityData: locationResponse.data[0],
-      locationLat: locationResponse.data[0].lat,
-      locationLon: locationResponse.data[0].lon,
-    });
+
+    if(!this.state.showError){
+      this.setState(
+      {
+        displayInfo: true,
+        cityData: locationResponse.data[0],
+        locationLat: locationResponse.data[0].lat,
+        locationLon: locationResponse.data[0].lon,
+      }
+      );
+    }
 
     console.log(this.state.cityMap);
 
@@ -73,17 +98,18 @@ class Main extends React.Component {
         </Container>
 
         {this.state.displayInfo && (
-          <>
-            <Container className="location">
-              {/* <Map /> */}
-              <Location
-                mapImage={`https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATIONIQ_KEY}&center=${this.state.locationLat},${this.state.locationLon}&zoom=12&markers=icon:small-red-cutout|${this.state.locationLat},${this.state.locationLon}`}
-                cityName={this.state.cityData.display_name}
-                cityLat={this.state.cityData.lat}
-                cityLon={this.state.cityData.lon}
-              />
-            </Container>
-          </>
+          <Container className="location">
+            <Location
+              mapImage={`https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATIONIQ_KEY}&center=${this.state.locationLat},${this.state.locationLon}&zoom=12&markers=icon:small-red-cutout|${this.state.locationLat},${this.state.locationLon}`}
+              cityName={this.state.cityData.display_name}
+              cityLat={this.state.cityData.lat}
+              cityLon={this.state.cityData.lon}
+            />
+          </Container>
+        )}
+
+        {this.state.showError && (
+          <Error show={this.state.showError}/>
         )}
       </>
     );
