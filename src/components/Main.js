@@ -56,25 +56,28 @@ class Main extends React.Component {
     return (
       <>
         <Container className="formContainer">
-          <Form>
+          <Form className="d-flex justify-content-center" onSubmit={this.handleDisplaySearch}>
             <Form.Group>
-              <Form.Label>City</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="City"
-                onChange={this.handleSearchInput}
-              />
-              <Button onClick={this.handleDisplaySearch}>Explore!</Button>
+              <Form.Label style={{textAlign:'center'}}>City</Form.Label>
+              <Form.Group className="d-flex">
+                <Form.Control
+                  type="text"
+                  placeholder="City"
+                  onChange={this.handleSearchInput}
+                  style={{width:'200px'}}
+                />
+                <Button onClick={this.handleDisplaySearch}>Explore!</Button>
+              </Form.Group>
             </Form.Group>
           </Form>
         </Container>
 
         {this.state.displayInfo && (
           <>
-            <Container>
+            <Container className="location">
               {/* <Map /> */}
               <Location
-                mapImage={`https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATIONIQ_KEY}&center=${this.state.locationLat},${this.state.locationLon}&zoom=10&markers=icon:small-red-cutout|${this.state.locationLat},${this.state.locationLon}`}
+                mapImage={`https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATIONIQ_KEY}&center=${this.state.locationLat},${this.state.locationLon}&zoom=12&markers=icon:small-red-cutout|${this.state.locationLat},${this.state.locationLon}`}
                 cityName={this.state.cityData.display_name}
                 cityLat={this.state.cityData.lat}
                 cityLon={this.state.cityData.lon}
