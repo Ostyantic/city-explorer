@@ -1,6 +1,7 @@
 import React from "react";
 import Error from "./ErrorMsg";
 import Location from "./Location";
+import Weather from "./Weather";
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
@@ -17,6 +18,8 @@ class Main extends React.Component {
       cityData: "",
       locationLat: "",
       locationLon: "",
+      date: "",
+      forecast: "",
     };
   }
 
@@ -56,9 +59,12 @@ class Main extends React.Component {
       `https://us1.locationiq.com/v1/search?key=${process.env.REACT_APP_LOCATIONIQ_KEY}&q=${this.state.city}&format=json`
     );
 
+    let serverResponse = await axios.get(`http://localhost:3001/weather?searchQuery=${this.state.city}`)
+
     // console.log(locationResponse.data[0]);
     // console.log(locationResponse.data[0].lat);
     // console.log(locationResponse.data[0].lon);
+    console.log(serverResponse);
     
 
 
@@ -69,11 +75,13 @@ class Main extends React.Component {
         cityData: locationResponse.data[0],
         locationLat: locationResponse.data[0].lat,
         locationLon: locationResponse.data[0].lon,
+        date: serverResponse.data[0].date,
+        forecast:serverResponse.data[0].desc,
       }
       );
     }
 
-    console.log(this.state.cityMap);
+    // console.log(this.state.cityMap);
 
   };
 
@@ -104,6 +112,10 @@ class Main extends React.Component {
               cityName={this.state.cityData.display_name}
               cityLat={this.state.cityData.lat}
               cityLon={this.state.cityData.lon}
+            />
+            <Weather className="weather"
+              date={this.state.date}
+              forecast={this.state.forecast}
             />
           </Container>
         )}
