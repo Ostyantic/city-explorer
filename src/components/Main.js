@@ -35,52 +35,52 @@ class Main extends React.Component {
   };
 
   handleShowError = (e) => {
-    e.preventDefault();
 
-    if(this.state.locationLat || this.state.locationLon){
-      this.setState(
-      {
-        showError: false,
-      });
-    } else {
-      this.setState(
-      {
-        showError: true,
-      }
-      );
-    }
+    this.setState({
+      showError: false,
+    })
 
   }
 
   handleDisplaySearch = async (e) => {
     e.preventDefault();
 
-    let locationResponse = await axios.get(
-      `https://us1.locationiq.com/v1/search?key=${process.env.REACT_APP_LOCATIONIQ_KEY}&q=${this.state.city}&format=json`
-    );
-
-    let serverResponse = await axios.get(`http://localhost:3001/weather?searchQuery=${this.state.city}`)
-
-    // console.log(locationResponse.data[0]);
-    // console.log(locationResponse.data[0].lat);
-    // console.log(locationResponse.data[0].lon);
-    console.log(serverResponse);
+    try{
+        let locationResponse = await axios.get(
+          `https://us1.locationiq.com/v1/search?key=${process.env.REACT_APP_LOCATIONIQ_KEY}&q=${this.state.city}&format=json`
+        );
     
+        let serverResponse = await axios.get(`http://localhost:3001/weather?searchQuery=${this.state.city}`)
+    
+        // console.log(locationResponse.data[0]);
+        // console.log(locationResponse.data[0].lat);
+        // console.log(locationResponse.data[0].lon);
+        console.log(serverResponse);
+        
+    
+    
+        if(!this.state.showError){
+          this.setState(
+          {
+            displayInfo: true,
+            cityData: locationResponse.data[0],
+            locationLat: locationResponse.data[0].lat,
+            locationLon: locationResponse.data[0].lon,
+            date: serverResponse.data[0].date,
+            forecast:serverResponse.data[0].desc,
+          }
+          );
+        }
 
-
-    if(!this.state.showError){
-      this.setState(
-      {
-        displayInfo: true,
-        cityData: locationResponse.data[0],
-        locationLat: locationResponse.data[0].lat,
-        locationLon: locationResponse.data[0].lon,
-        date: serverResponse.data[0].date,
-        forecast:serverResponse.data[0].desc,
-      }
-      );
     }
-
+    catch(error){
+      console.log(error);
+      this.setState(
+        {
+          showError: true,
+        }
+      )
+    }
     // console.log(this.state.cityMap);
 
   };
@@ -121,7 +121,7 @@ class Main extends React.Component {
         )}
 
         {this.state.showError && (
-          <Error show={this.state.showError}/>
+          <Error show={this.handleShowError}/>
         )}
       </>
     );
