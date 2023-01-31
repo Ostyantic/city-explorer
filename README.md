@@ -19,4 +19,7 @@
 
 ## Credit and Collaborations
 <!-- Give credit (and a link) to other people or resources that helped you build this application. -->
-Time Estimates
+
+## WRRC (with Araceli)
+
+![Image](./src/images/Screenshot%202023-01-24%20at%2011.55.08%20PM.png)
