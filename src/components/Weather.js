@@ -5,7 +5,16 @@ class Weather extends React.Component{
     return(
     <>
       <h2>Daily Forecast</h2>
-      <p>Date: {this.props.date}, Forecast: {this.props.forecast}</p>   
+      <ul>
+      {this.props.weather.map((element, idx) => {
+        return(
+          <li key={idx}>
+            <p>Date: {element.date}</p>
+            <p>Forecast: {element.desc}</p>   
+          </li>
+        )
+      })}
+      </ul>
     </>
     
     )
