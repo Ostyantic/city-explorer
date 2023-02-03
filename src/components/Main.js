@@ -18,7 +18,7 @@ class Main extends React.Component {
       cityData: "",
       locationLat: "",
       locationLon: "",
-      weather: "",
+      weather: [],
       // date: "",
       // forecast: "",
     };
@@ -49,14 +49,10 @@ class Main extends React.Component {
         `https://us1.locationiq.com/v1/search?key=${process.env.REACT_APP_LOCATIONIQ_KEY}&q=${this.state.city}&format=json`
       );
 
-      let serverResponse = await axios.get(
-        `${process.env.REACT_APP_SERVER}/weather?searchQuery=${this.state.city}`
-      );
-
-      // console.log(locationResponse.data[0]);
+      // console.log(locationResponse.data);
       // console.log(locationResponse.data[0].lat);
       // console.log(locationResponse.data[0].lon);
-      console.log(serverResponse);
+    
 
       if (!this.state.showError) {
         this.setState({
@@ -64,7 +60,7 @@ class Main extends React.Component {
           cityData: locationResponse.data[0],
           locationLat: locationResponse.data[0].lat,
           locationLon: locationResponse.data[0].lon,
-          weather: serverResponse.data,
+
           // date: serverResponse.data.date,
           // forecast:serverResponse.data.desc,
         });
@@ -78,11 +74,29 @@ class Main extends React.Component {
     // console.log(this.state.cityMap);
   };
 
+  handleDisplayWeather = async () => {
+
+
+    try{
+
+      let serverResponse = await axios.get(
+        `${process.env.REACT_APP_SERVER}/weather?lat=${this.state.locationLat}&lon=${this.state.locationLon}`
+      );
+
+      this.setState({
+        weather: serverResponse.data,
+      })
+
+      console.log(serverResponse);
+    }
+    catch(error) {
+      console.log(error);
+    }
+  }
+
   render() {
     return (
-      <>
-        <Container className="parentContainer">
-          
+      <>          
           <Container className="formContainer">
             <Form
               className="d-flex justify-content-center"
@@ -111,16 +125,17 @@ class Main extends React.Component {
                 cityLat={this.state.cityData.lat}
                 cityLon={this.state.cityData.lon}
               />
+              {this.state.displayInfo &&
+              <Button onClick={this.handleDisplayWeather}>Get Weather!</Button>}
+              {this.state.weather.length > 0 &&
               <Weather
                 className="weather"
                 weather={this.state.weather}
                 // date={this.state.date}
                 // forecast={this.state.forecast}
-              />
+              />}
             </Container>
           )}
-        </Container>
-
         {this.state.showError && <Error show={this.handleShowError} />}
       </>
     );
