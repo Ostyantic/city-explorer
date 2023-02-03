@@ -7,8 +7,8 @@ class Location extends React.Component {
     return (
       <Card bg='dark'>
         <Card.Header as={'h2'}>{this.props.cityName}</Card.Header>
-        <Card.Body>Lat: {this.props.cityLat}, Long: {this.props.cityLon}</Card.Body>
         <Card.Img src={this.props.mapImage}/>
+        <Card.Body>Lat: {this.props.cityLat}, Long: {this.props.cityLon}</Card.Body>
       </Card>
     )
   }
