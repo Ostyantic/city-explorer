@@ -2,6 +2,7 @@ import React from "react";
 import Error from "./ErrorMsg";
 import Location from "./Location";
 import Weather from "./Weather";
+import Movies from "./Movies";
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
@@ -15,10 +16,11 @@ class Main extends React.Component {
       displayInfo: false,
       showError: false,
       city: "",
-      cityData: "",
+      cityData: [],
       locationLat: "",
       locationLon: "",
       weather: [],
+      movies:[],
       // date: "",
       // forecast: "",
     };
@@ -94,6 +96,22 @@ class Main extends React.Component {
     }
   }
 
+  handleDisplayMovies = async () => {
+
+    try {
+      let movieResponse = await axios.get(
+        `${process.env.REACT_APP_SERVER}/movie?city=${this.state.city}`
+      );
+      this.setState({
+        movies: movieResponse.data,
+      })
+      console.log(movieResponse);
+    }
+    catch(error) {
+      console.log(error)
+    }
+  }
+
   render() {
     return (
       <>          
@@ -133,6 +151,13 @@ class Main extends React.Component {
                 weather={this.state.weather}
                 // date={this.state.date}
                 // forecast={this.state.forecast}
+              />}
+              {this.state.displayInfo &&
+              <Button onClick={this.handleDisplayMovies}>List Movies!</Button>}
+              {this.state.movies.length > 0 &&
+              <Movies 
+                className="movies"
+                movies={this.state.movies}
               />}
             </Container>
           )}
