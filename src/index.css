@@ -55,7 +55,7 @@ footer, header {
 }
 
 .weatherDay {
-  width: 200px;
+  width: 150px;
   margin: 2px;
   border: 2px solid black;
   background-color: dimgray;
