@@ -1,7 +1,6 @@
 body {
-  background-color: slategrey;
+  background-color: #708090;
   color: azure;
-  /* text-align: center; */
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
@@ -14,14 +13,16 @@ body {
 footer, header {
   margin: 1rem;
   text-align: center;
+  color: #F9F871;
 }
 
 .location { 
   border: 1px solid azure;
   border-radius: 5px;
   padding: 1rem;
-  width: 25rem;
-  height: 36rem;
+  width: auto;
+  max-width: max-content;
+  /* height: auto; */
   background-color: dimgray;
 }
 
@@ -34,8 +35,37 @@ footer, header {
   border: 1px solid black;
   border-radius: 5px;
   margin-bottom: 1rem;
-
   /* margin: auto; */
+}
+
+.weatherList { 
+  margin: auto;
+  width: 85%;
+  height: auto;
+  list-style-type: none;
+  padding: 0;
+  /* border: 1px solid black; */
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.weatherHeader, .moviesHeader {
+  text-align: center;
+  color:#F9F871;
+}
+
+.weatherDay {
+  width: 200px;
+  margin: 2px;
+  border: 2px solid black;
+  background-color: dimgray;
+  border-radius: 5px;
+}
+
+.movieCards{
+
+  display: flex;
+  justify-content: space-evenly;
 }
 
 code {
