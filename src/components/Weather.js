@@ -1,19 +1,19 @@
 import React from "react";
+import WeatherDay from "./WeatherDay";
 
 class Weather extends React.Component{
   render() {
     return(
     <>
       <h2 className="weatherHeader">Daily Forecast</h2>
-      <ul className="weatherList">
+      <ul className="weatherList">      
       {this.props.weather.map((element, idx) => {
         return(
-          <li className="weatherDay" style={{textAlign:"center"}} key={idx}>
-            <h5 style={{background:"black"}}>Date</h5>
-            <p>{`${element.date}`}</p>
-            <h5 style={{background:"black"}}>Forecast</h5>   
-            <p>{`${element.desc}`}</p>
-          </li>
+          <WeatherDay 
+          key={idx}
+          currentDate={element.date}
+          currentForecast={element.desc}
+          />
         )
       })}
       </ul>
