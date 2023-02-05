@@ -143,24 +143,25 @@ class Main extends React.Component {
                 cityLat={this.state.cityData.lat}
                 cityLon={this.state.cityData.lon}
               />
+            </Container>
+                      )}  
               {this.state.displayInfo &&
-              <Button onClick={this.handleDisplayWeather}>Get Weather!</Button>}
+              <Button className="weatherButton" onClick={this.handleDisplayWeather}>Get Weather!</Button>}
+              {this.state.displayInfo &&
+              <Button className="moviesButton" onClick={this.handleDisplayMovies}>List Movies!</Button>}
               {this.state.weather.length > 0 &&
               <Weather
                 className="weather"
                 weather={this.state.weather}
-                // date={this.state.date}
                 // forecast={this.state.forecast}
               />}
-              {this.state.displayInfo &&
-              <Button onClick={this.handleDisplayMovies}>List Movies!</Button>}
               {this.state.movies.length > 0 &&
               <Movies 
                 className="movies"
                 movies={this.state.movies}
               />}
-            </Container>
-          )}
+            {/* </Container> */}
+
         {this.state.showError && <Error show={this.handleShowError} />}
       </>
     );
