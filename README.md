@@ -4,21 +4,56 @@
 **Version**: 1.0.0 (increment the patch/fix version number if you make more commits past your first submission)
 
 ## Overview
-<!-- Provide a high level overview of what this application is and why you are building it, beyond the fact that it's an assignment for this class. (i.e. What's your problem domain?) -->
+
+City explorer is a web application that allows users to search a city. After a city is searched, an image of the city location along with coordinates is displayed. There are additional features to display a 7-day weather forecast as well as 5 movies the city searched is featured in (by name reference).
 
 ## Getting Started
-<!-- What are the steps that a user must take in order to build this app on their own machine and get it running? -->
+
+ In order to get started you should:
+
+ 1. Create a new repo
+ 2. Use create-react-app to setup a new React application
+ 3. Connect your GitHub repo to your local repo
+ 4. Procure the following API keys to be used in your application
+ 5. Install Axios to be able make requests to APIS and React Bootstrap for additional react component customization
+ 6. creat an `.env` file, API keys are stored here
 
 ## Architecture
-<!-- Provide a detailed description of the application design. What technologies (languages, libraries, etc) you're using, and any other relevant design information. -->
+
+APIs:
+
+- LocationIQ
+- Weatherbit.IO
+- themoviedb
+
+Languages:
+
+- Javascript 3
+- HTML 5
+- CSS3
+
+Libraries:
+
+- Axios
+- React
+- React Bootstrap
+- Bootstrap
+- React Dom
+- React Scripts
 
 ## Change Log
-<!-- Use this area to document the iterative changes made to your application as each feature is successfully implemented. Use time stamps. Here's an example:
-
-01-01-2001 4:59pm - Application now has a fully-functional express server, with a GET route for the location resource. -->
+01-26-23 completed Update the page with the returned `display_name`, `latitude`, and `longitude`, displayed nicely in an appropriate Bootstrap component
+01-26-23 completed Deploy your updated React app to Netlify
+01-31-23 completed When an error occurs, display the status code and an error message to the user.
+02-04-23 completed When a location search is successful, send a request with axios to your API's `/movies` & `/weather` endpoints. Include the user-provided search term.
+02-04-23 Componentized the front-end codebase
 
 ## Credit and Collaborations
-<!-- Give credit (and a link) to other people or resources that helped you build this application. -->
+
+- Brenden Moore
+- Yurii Hlukhyi
+- Brandon Mizutani
+- Roger Reyes
 
 ## WRRC (with Araceli)
 
